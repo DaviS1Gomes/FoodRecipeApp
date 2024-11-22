@@ -6,7 +6,7 @@ const Header = ({headerText, headerIcon}) => {
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.mainText}>{headerText}</Text>
-      <FontAwesome icon={headerIcon} size={24} color ='#EEAD2D'/>
+      <FontAwesome name={headerIcon} size={24} color ='#EEAD2D'/>
     </View>
   )
 }
