@@ -8,7 +8,7 @@ const SearchFilter = ({ icon, placeholder }) => {
     return(
         <View style={styles.container}>
             <FontAwesome name={icon} size={20} color={"#EEAD2D"} />
-            <TextInput style={styles.textMain}>{placeholder} </TextInput>
+            <TextInput style={styles.textMain} placeholder={placeholder}/> 
         </View>
     )
 }
