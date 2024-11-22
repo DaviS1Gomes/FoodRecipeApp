@@ -8,7 +8,6 @@ const RecipeListScreen = () =>{
   return(
     <SafeAreaView style={styles.recipeSafeAreaView}>
       <Header headerText={"Lista de Receita"} headerIcon={"bell"}/>
-
     <SearchFilter icon ="search" placeholder={"Qual a receita de hoje?"}/>
 
     <View style={{marginTop: 22}}>
