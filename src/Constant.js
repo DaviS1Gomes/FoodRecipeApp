@@ -16,7 +16,7 @@ export const categories = [
     },
     {
         id:"03",
-        category: "Dinner",
+        category: "Jantar",
     },
     {
         id:"04",
