@@ -4,8 +4,8 @@ import { FontAwesome } from "@expo/vector-icons";
 
 const Header = ({headerText, headerIcon}) => {
   return (
-    <View>
-      <Text>{headerText}</Text>
+    <View style={styles.mainContainer}>
+      <Text style={styles.mainText}>{headerText}</Text>
       <FontAwesome icon={headerIcon} size={24} color ='#EEAD2D'/>
     </View>
   )
@@ -14,5 +14,12 @@ const Header = ({headerText, headerIcon}) => {
 export default Header;
 
 const styles = StyleSheet.create ({
-
+   mainContainer:{
+    flexDirection: 'row'
+   },
+   mainText: {
+      flex: 1,
+      fontSize: 22,
+      fontWeight: "700"
+   }
 })
