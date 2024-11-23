@@ -1,29 +1,51 @@
 import { StyleSheet, View, Text, FlatList, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import {colors} from "../Constant";
-
+import { colors } from "../Constant";
+import { FontAwesome } from "@expo/vector-icons";
 
 const RecipeCard = () => {
-
-  const [recipe, setRecipes ] = useState([]);
+  const [recipe, setRecipes] = useState([]);
 
   useEffect(() => {
-    fetch('https://dummyjson.com/recipes')
-    .then((res) => res.json())
-    .then((data) => {
-      setRecipes(data.recipes)
-    })
-  })
+    fetch("https://dummyjson.com/recipes")
+      .then((res) => res.json())
+      .then((data) => {
+        setRecipes(data.recipes);
+      })
+      .catch((error) => console.error("Erro ao buscar receitas:", error));
+  }, []);
 
   return (
     <View>
-      <FlatList data={recipe} 
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => 
-        <View style={styles.recipes}>
-          <Image source={item.image}/>
-          <Text>{item.name}</Text>
-        </View>} />
+      <FlatList
+        data={recipe}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => {
+          const totalMinutes = item.prepTimeMinutes + item.cookTimeMinutes;
+          return (
+            <View style={styles.recipes}>
+              <Image
+                source={{ uri: item.image }}
+                style={styles.imagesRecipes}
+              />
+              <Text style={styles.recipeName}>{item.name}</Text>
+              {item.prepTimeMinutes && (
+                <View style={styles.timeWrapper}>
+                  <Text style={styles.prepTimeText}>
+                    Tempo total:{" "}
+                  </Text>
+                  <Text style={styles.totalMinutes}>
+                    {totalMinutes} Min
+                  </Text>
+                </View>
+              )}
+            </View>
+          );
+        }}
+        numColumns={2}
+        columnWrapperStyle={{ justifyContent: "space-between" }}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 };
@@ -40,7 +62,40 @@ const styles = StyleSheet.create({
     elevation: 4,
     borderRadius: 16,
     marginVertical: 16,
-    alignItems: 'center',
+    alignItems: "center",
+    paddingHorizontal: 4,
+    paddingVertical: 15,
+    flex: 1,
+    marginHorizontal: 5,
+  },
 
+  imagesRecipes: {
+    width: 130,
+    height: 130,
+    resizeMode: "contain",
+    marginBottom: 10,
+    borderRadius: 15,
+  },
+  recipeName: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#333",
+    textAlign: "center",
+    marginBottom: 5,
+  },
+  prepTimeText: {
+    fontSize: 14,
+    color: "#555",
+    textAlign: "center",
+  },
+  totalMinutes: {
+    fontSize: 14,
+    color: "#555",
+    textAlign: "center",
+    fontWeight: "bold"
+  },
+  timeWrapper:{
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 });

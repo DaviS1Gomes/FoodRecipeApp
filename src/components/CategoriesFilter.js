@@ -26,7 +26,7 @@ export default CategoriesFilter;
 
 const styles = StyleSheet.create({
   container: {
-    marginRight: 36,
+    marginRight: 20,
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 10,
