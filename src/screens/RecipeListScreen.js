@@ -11,12 +11,12 @@ const RecipeListScreen = () =>{
       <Header headerText={"Bem-Vindo, "} headerIcon={"bell"}/>
     <SearchFilter icon ="search" placeholder={"Qual a receita de hoje?"}/>
 
-    <View style={styles.container}>
+    <View>
         <Text style={styles.categoriesText}>Categorias</Text>
         <CategoriesFilter />
     </View>
 
-    <View style={styles.container}>
+    <View>
       <Text style={styles.categoriesText}>Receitas</Text>
       <RecipeCard/>
     </View>
@@ -31,9 +31,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 16,
     marginTop: 35,
-  },
-  container:{
-    marginTop: 12.5
   },
   categoriesText: {
     fontSize: 22,

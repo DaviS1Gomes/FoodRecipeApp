@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, FlatList, Image } from "react-native";
+import { StyleSheet, View, Text, FlatList, Image, Pressable } from "react-native";
 import React, { useEffect, useState } from "react";
 import { colors } from "../Constant";
 import { FontAwesome } from "@expo/vector-icons";
@@ -23,7 +23,9 @@ const RecipeCard = () => {
         renderItem={({ item }) => {
           const totalMinutes = item.prepTimeMinutes + item.cookTimeMinutes;
           return (
-            <View style={styles.recipes}>
+            <Pressable style={styles.recipes}
+            onPress={()=> {
+            }}>
               <Image
                 source={{ uri: item.image }}
                 style={styles.imagesRecipes}
@@ -39,7 +41,12 @@ const RecipeCard = () => {
                   </Text>
                 </View>
               )}
-            </View>
+              <View style={styles.containerNota}> 
+                <Text>Nota: </Text>
+                <Text style={styles.totalMinutes}>{item.rating}</Text>
+                <FontAwesome name='star' size={16} color={colors.COLOR_PRIMARY}/>
+              </View>
+            </Pressable>
           );
         }}
         numColumns={2}
@@ -97,5 +104,11 @@ const styles = StyleSheet.create({
   timeWrapper:{
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  containerNota:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
+    marginTop: 5
   }
 });
