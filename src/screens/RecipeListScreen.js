@@ -7,12 +7,16 @@ import CategoriesFilter from '../components/CategoriesFilter'
 const RecipeListScreen = () =>{
   return(
     <SafeAreaView style={styles.recipeSafeAreaView}>
-      <Header headerText={"Lista de Receita"} headerIcon={"bell"}/>
+      <Header headerText={"Bem-Vindo, "} headerIcon={"bell"}/>
     <SearchFilter icon ="search" placeholder={"Qual a receita de hoje?"}/>
 
-    <View style={{marginTop: 22}}>
-        <Text style={{fontSize:22, fontWeight:"bold"}}>Categorias</Text>
+    <View style={styles.container}>
+        <Text style={styles.categoriesText}>Categorias</Text>
         <CategoriesFilter />
+    </View>
+
+    <View style={styles.container}>
+      <Text style={styles.categoriesText}>Receitas</Text>
     </View>
     </SafeAreaView>
   )
@@ -23,7 +27,14 @@ export default RecipeListScreen;
 const styles = StyleSheet.create({
   recipeSafeAreaView: {
     flex: 1,
-    marginHorizontal: 16
-
+    marginHorizontal: 16,
+    marginTop: 35,
+  },
+  container:{
+    marginTop: 12.5
+  },
+  categoriesText: {
+    fontSize: 22,
+    fontWeight: 'bold'
   }
 })
