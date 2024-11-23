@@ -3,6 +3,7 @@ import React from 'react'
 import Header from '../components/Header'
 import SearchFilter from "../components/SearchFilter" 
 import CategoriesFilter from '../components/CategoriesFilter'
+import RecipeCard from '../components/RecipeCard'
 
 const RecipeListScreen = () =>{
   return(
@@ -17,6 +18,7 @@ const RecipeListScreen = () =>{
 
     <View style={styles.container}>
       <Text style={styles.categoriesText}>Receitas</Text>
+      <RecipeCard/>
     </View>
     </SafeAreaView>
   )
