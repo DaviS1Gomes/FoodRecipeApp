@@ -1,28 +1,28 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native"
-import React from 'react'
-import Header from '../components/Header'
-import SearchFilter from "../components/SearchFilter" 
-import CategoriesFilter from '../components/CategoriesFilter'
-import RecipeCard from '../components/RecipeCard'
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import Header from "../components/Header";
+import SearchFilter from "../components/SearchFilter";
+import CategoriesFilter from "../components/CategoriesFilter";
+import RecipeCard from "../components/RecipeCard";
 
-const RecipeListScreen = () =>{
-  return(
+const RecipeListScreen = () => {
+  return (
     <SafeAreaView style={styles.recipeSafeAreaView}>
-      <Header headerText={"Bem-Vindo, "} headerIcon={"bell"}/>
-    <SearchFilter icon ="search" placeholder={"Qual a receita de hoje?"}/>
+      <Header headerText={"Bem-Vindo, "} headerIcon={"bell"} />
+      <SearchFilter icon="search" placeholder={"Qual a receita de hoje?"} />
 
-    <View>
+      <View>
         <Text style={styles.categoriesText}>Categorias</Text>
         <CategoriesFilter />
-    </View>
+      </View>
 
-    <View>
-      <Text style={styles.categoriesText}>Receitas</Text>
-      <RecipeCard/>
-    </View>
+      <View>
+        <Text style={styles.categoriesText}>Receitas</Text>
+        <RecipeCard />
+      </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
 export default RecipeListScreen;
 
@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
   },
   categoriesText: {
     fontSize: 22,
-    fontWeight: 'bold'
-  }
-})
+    fontWeight: "bold",
+  },
+});

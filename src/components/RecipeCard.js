@@ -1,4 +1,11 @@
-import { StyleSheet, View, Text, FlatList, Image, Pressable } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  Image,
+  Pressable,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { colors } from "../Constant";
 import { FontAwesome } from "@expo/vector-icons";
@@ -6,8 +13,8 @@ import { useNavigation } from "@react-navigation/native";
 
 const RecipeCard = () => {
   const [recipe, setRecipes] = useState([]);
-  const navigation = useNavigation()
-  
+  const navigation = useNavigation();
+
   useEffect(() => {
     fetch("https://dummyjson.com/recipes")
       .then((res) => res.json())
@@ -25,9 +32,12 @@ const RecipeCard = () => {
         renderItem={({ item }) => {
           const totalMinutes = item.prepTimeMinutes + item.cookTimeMinutes;
           return (
-            <Pressable style={styles.recipes}
-            onPress={()=> {navigation.navigate('RecipeDetails')
-            }}>
+            <Pressable
+              style={styles.recipes}
+              onPress={() => {
+                navigation.navigate("RecipeDetails");
+              }}
+            >
               <Image
                 source={{ uri: item.image }}
                 style={styles.imagesRecipes}
@@ -35,18 +45,18 @@ const RecipeCard = () => {
               <Text style={styles.recipeName}>{item.name}</Text>
               {item.prepTimeMinutes && (
                 <View style={styles.timeWrapper}>
-                  <Text style={styles.prepTimeText}>
-                    Tempo total:{" "}
-                  </Text>
-                  <Text style={styles.totalMinutes}>
-                    {totalMinutes} Min
-                  </Text>
+                  <Text style={styles.prepTimeText}>Tempo total: </Text>
+                  <Text style={styles.totalMinutes}>{totalMinutes} Min</Text>
                 </View>
               )}
-              <View style={styles.containerNota}> 
+              <View style={styles.containerNota}>
                 <Text>Nota: </Text>
                 <Text style={styles.totalMinutes}>{item.rating}</Text>
-                <FontAwesome name='star' size={16} color={colors.COLOR_PRIMARY}/>
+                <FontAwesome
+                  name="star"
+                  size={16}
+                  color={colors.COLOR_PRIMARY}
+                />
               </View>
             </Pressable>
           );
@@ -101,16 +111,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#555",
     textAlign: "center",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
-  timeWrapper:{
-    flexDirection: 'row',
-    alignItems: 'center'
+  timeWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
   },
-  containerNota:{
-    flexDirection: 'row',
-    alignItems: 'center',
+  containerNota: {
+    flexDirection: "row",
+    alignItems: "center",
     gap: 2,
-    marginTop: 5
-  }
+    marginTop: 5,
+  },
 });

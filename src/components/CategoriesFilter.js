@@ -9,9 +9,22 @@ const CategoriesFilter = () => {
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {categories.map((category, index) => {
           return (
-            <View key={`${category.category}-${index}`}
-              style={[styles.container,{backgroundColor: index === 0 ? colors.COLOR_PRIMARY : colors.COLOR_LIGHT}]}>
-              <Text style={[{color: index === 0 && colors.COLOR_LIGHT}, styles.categoriesText]}>
+            <View
+              key={`${category.category}-${index}`}
+              style={[
+                styles.container,
+                {
+                  backgroundColor:
+                    index === 0 ? colors.COLOR_PRIMARY : colors.COLOR_LIGHT,
+                },
+              ]}
+            >
+              <Text
+                style={[
+                  { color: index === 0 && colors.COLOR_LIGHT },
+                  styles.categoriesText,
+                ]}
+              >
                 {category.category}
               </Text>
             </View>
@@ -38,6 +51,6 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   categoriesText: {
-    fontSize: 18
-  }
+    fontSize: 18,
+  },
 });
