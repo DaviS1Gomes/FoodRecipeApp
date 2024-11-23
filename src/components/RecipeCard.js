@@ -2,10 +2,12 @@ import { StyleSheet, View, Text, FlatList, Image, Pressable } from "react-native
 import React, { useEffect, useState } from "react";
 import { colors } from "../Constant";
 import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const RecipeCard = () => {
   const [recipe, setRecipes] = useState([]);
-
+  const navigation = useNavigation()
+  
   useEffect(() => {
     fetch("https://dummyjson.com/recipes")
       .then((res) => res.json())
@@ -24,7 +26,7 @@ const RecipeCard = () => {
           const totalMinutes = item.prepTimeMinutes + item.cookTimeMinutes;
           return (
             <Pressable style={styles.recipes}
-            onPress={()=> {
+            onPress={()=> {navigation.navigate('RecipeDetails')
             }}>
               <Image
                 source={{ uri: item.image }}
