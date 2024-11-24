@@ -32,7 +32,7 @@ const RecipeCard = () => {
         renderItem={({ item }) => {
           const totalMinutes = item.prepTimeMinutes + item.cookTimeMinutes;
           return (
-            <Pressable
+            <Pressable 
               style={styles.recipes}
               onPress={() => navigation.navigate("RecipeDetails", {item: item})}
             >

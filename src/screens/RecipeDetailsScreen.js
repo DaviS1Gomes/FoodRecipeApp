@@ -1,11 +1,32 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, SafeAreaView, Pressable, Image } from "react-native";
 import React from "react";
+import { FontAwesome } from "@expo/vector-icons";
+
 
 const RecipeDetailsScreen = ({navigation, route}) => {
   const { item } = route.params
   const totalMinutes = item.prepTimeMinutes + item.cookTimeMinutes
+
   return (
     <>
+    <View style={{ backgroundColor:"#6F4E37", flex:1}}>
+      <SafeAreaView style={{flexDirection:'row', marginHorizontal:16}}>
+        <Pressable style={{flex:1}} onPress={() => navigation.goBack( )}>
+          <FontAwesome name={"arrow-circle-left"} size={35} color="#fff" />
+        </Pressable>
+        
+        <FontAwesome name={"heart-o"} size={35} color="#fff" />
+      </SafeAreaView>
+      <View style={{backgroundColor:"#fff", flex:1, marginTop: 240, borderTopLeftRadius:56, borderTopRightRadius:56, alignItems:"center"}}>
+        <View style={{ 
+          height:300, 
+          width:300, 
+          position: 'absolute', 
+          top:-150}}>
+           <Image 
+            source={{ uri: `https://cdn.dummyjson.com/recipe-images/${item.id}.webp` }} 
+            style={{width:"100%", height:"100%", resizeMode:"contain" }} /> 
+        </View>
 
       <Text style={styles.recipeName}> {item.name} </Text>
       <Text style={styles.descriptionName}> {item.cuisine} </Text>
@@ -34,7 +55,7 @@ const RecipeDetailsScreen = ({navigation, route}) => {
         <Text style={styles.fontPassos}> Ingredientes: </Text>
 
       {item.ingredients.map((ingredient) => {
-
+        
       return (
         
         <View style={styles.ingredientsContainer} >
@@ -62,6 +83,8 @@ const RecipeDetailsScreen = ({navigation, route}) => {
 
       );
     })}
+      </View>
+      </View>
       </View>
     </>
   );
