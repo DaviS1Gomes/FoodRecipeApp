@@ -8,7 +8,7 @@ import RecipeCard from "../components/RecipeCard";
 const RecipeListScreen = () => {
   return (
     <SafeAreaView style={styles.recipeSafeAreaView}>
-      <Header headerText={"Bem-Vindo, "} headerIcon={"bell"} />
+      <Header headerText={"Bem-Vindo, "} headerIcon={"list"} />
       <SearchFilter icon="search" placeholder={"Qual a receita de hoje?"} />
 
       <View>

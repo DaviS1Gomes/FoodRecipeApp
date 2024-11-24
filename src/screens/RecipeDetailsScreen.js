@@ -22,7 +22,7 @@ const RecipeDetailsScreen = ({ navigation, route }) => {
           <Pressable style= {{ flex: 1 }} onPress={() => navigation.goBack()}>
             <FontAwesome name={"arrow-circle-left"} size={35} color="#fff" />
           </Pressable>
-            <FontAwesome name={"heart-o"} size={35} color="#fff" />
+            <FontAwesome name={"bookmark-o"} size={35} color="#fff" />
         </SafeAreaView>
         <ScrollView>
         <View style= {styles.whiteContainer}>
@@ -177,16 +177,21 @@ const styles = StyleSheet.create({
   containerPassos: {
     alignSelf: "flex-start",
     marginVertical: 22,
+    
   },
   fontPassos: {
     fontSize: 22,
     fontWeight: "600",
     marginBottom: 6,
+    
   },
   instructionsContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginVertical: 4,
+    marginLeft: 10,
+
+
   },
   fontTDC: {
     fontSize: 40,
