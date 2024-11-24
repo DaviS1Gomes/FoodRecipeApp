@@ -1,5 +1,6 @@
 import {
   StyleSheet,
+  ScrollView,
   View,
   Text,
   SafeAreaView,
@@ -23,64 +24,65 @@ const RecipeDetailsScreen = ({ navigation, route }) => {
           </Pressable>
             <FontAwesome name={"heart-o"} size={35} color="#fff" />
         </SafeAreaView>
-
+        <ScrollView>
         <View style= {styles.whiteContainer}>
-          <View style={styles.imageContainer} >
-            <Image
-              source={{ uri: item.image }} 
-              style={styles.image}
-            />
-          </View>
-
-          <Text style={styles.recipeName}> {item.name} </Text>
-          <Text style={styles.descriptionName}> {item.cuisine} </Text>
-
-          <View style={styles.containerTDC}>
-            <View style={styles.minutosToComplete}>
-              <Text style={styles.fontTDC}>⏰</Text>
-              <Text style={styles.fontDescriptionTDC}> {totalMinutes} Min(s)</Text>
+            <View style={styles.imageContainer} >
+              <Image
+                source={{ uri: item.image }} 
+                style={styles.image}
+              />
             </View>
 
-            <View style={styles.diffContainer}>
-              <Text style={styles.fontTDC}>🥣</Text>
-              <Text style={styles.fontDescriptionTDC}>{item.difficulty}</Text>
+            <Text style={styles.recipeName}> {item.name} </Text>
+            <Text style={styles.descriptionName}> {item.cuisine} </Text>
+
+            <View style={styles.containerTDC}>
+              <View style={styles.minutosToComplete}>
+                <Text style={styles.fontTDC}>⏰</Text>
+                <Text style={styles.fontDescriptionTDC}> {totalMinutes} Min(s)</Text>
+              </View>
+
+              <View style={styles.diffContainer}>
+                <Text style={styles.fontTDC}>🥣</Text>
+                <Text style={styles.fontDescriptionTDC}>{item.difficulty}</Text>
+              </View>
+
+              <View style={styles.caloriesContainer}>
+                <Text style={styles.fontTDC}>🔥</Text>
+                <Text style={styles.fontDescriptionTDC}>
+                  {" "}
+                  {item.caloriesPerServing} Cal
+                </Text>
+              </View>
             </View>
 
-            <View style={styles.caloriesContainer}>
-              <Text style={styles.fontTDC}>🔥</Text>
-              <Text style={styles.fontDescriptionTDC}>
-                {" "}
-                {item.caloriesPerServing} Cal
-              </Text>
+            <View style={styles.containerPassos}>
+              <Text style={styles.fontPassos}> Ingredientes: </Text>
+
+              {item.ingredients.map((ingredient, index) => {
+                return (
+                  <View style={styles.ingredientsContainer} key={`ingredient-${index}`}>
+                    <View style={styles.uniqueIngrediente} />
+                    <Text style={styles.fontIngredients}> {ingredient} </Text>
+                  </View>
+                );
+              })}
+            </View>
+
+            <View style={styles.containerPassos}>
+              <Text style={styles.fontPassos}> Passos: </Text>
+
+              {item.instructions.map((step, index) => {
+                return (
+                  <View style={styles.instructionsContainer} key={`instruction-${index}`}>
+                    <View style={styles.uniqueIngrediente} />
+                    <Text style={styles.fontIngredients}> {step} </Text>
+                  </View>
+                );
+              })}
             </View>
           </View>
-
-          <View style={styles.containerPassos}>
-            <Text style={styles.fontPassos}> Ingredientes: </Text>
-
-            {item.ingredients.map((ingredient) => {
-              return (
-                <View style={styles.ingredientsContainer}>
-                  <View style={styles.uniqueIngrediente} />
-                  <Text style={styles.fontIngredients}> {ingredient} </Text>
-                </View>
-              );
-            })}
-          </View>
-
-          <View style={styles.containerPassos}>
-            <Text style={styles.fontPassos}> Passos: </Text>
-
-            {item.instructions.map((step) => {
-              return (
-                <View style={styles.instructionsContainer}>
-                  <View style={styles.uniqueIngrediente} />
-                  <Text style={styles.fontIngredients}> {step} </Text>
-                </View>
-              );
-            })}
-          </View>
-        </View>
+        </ScrollView>
       </View>
     </>
   );
