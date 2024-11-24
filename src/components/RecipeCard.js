@@ -34,9 +34,7 @@ const RecipeCard = () => {
           return (
             <Pressable
               style={styles.recipes}
-              onPress={() => {
-                navigation.navigate("RecipeDetails");
-              }}
+              onPress={() => navigation.navigate("RecipeDetails", {item: item})}
             >
               <Image
                 source={{ uri: item.image }}
