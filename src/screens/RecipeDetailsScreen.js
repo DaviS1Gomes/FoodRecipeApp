@@ -3,6 +3,7 @@ import React from "react";
 
 const RecipeDetailsScreen = ({navigation, route}) => {
   const { item } = route.params
+  const totalMinutes = item.prepTimeMinutes + item.cookTimeMinutes
   return (
     <>
 
@@ -13,17 +14,17 @@ const RecipeDetailsScreen = ({navigation, route}) => {
 
         <View style= {styles.minutosToComplete}>
           <Text style={styles.fontTDC}> Temp </Text>
-          <Text style={styles.fontDescriptionTDC}> T </Text>
+          <Text style={styles.fontDescriptionTDC}> {totalMinutes} </Text>
         </View>
 
         <View style= {styles.diffContainer}>
           <Text style={styles.fontTDC}> Diff </Text>
-          <Text style={styles.fontDescriptionTDC}> D </Text>
+          <Text style={styles.fontDescriptionTDC}>{item.difficulty}</Text>
         </View>
 
         <View style= {styles.caloriesContainer}>
           <Text style={styles.fontTDC}> CALO </Text>
-          <Text style={styles.fontDescriptionTDC}> C </Text>
+          <Text style={styles.fontDescriptionTDC}> {item.caloriesPerServing} Cal</Text>
         </View>
 
       </View>
@@ -82,7 +83,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "row",
     width: "100%",
-    backgroundColor: "green",
     paddingHorizontal: 16,
   },
   minutosToComplete: {
