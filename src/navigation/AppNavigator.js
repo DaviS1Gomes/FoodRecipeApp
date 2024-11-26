@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import RecipeListScreen from "../screens/RecipeListScreen";
 import RecipeDetailsScreen from "../screens/RecipeDetailsScreen";
+import CategoriesFilter from "../components/CategoriesFilter";
 
 const Stack = createNativeStackNavigator();
 const appNavigator = () => {

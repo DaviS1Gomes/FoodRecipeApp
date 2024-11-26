@@ -5,42 +5,80 @@ import {
   FlatList,
   Image,
   Pressable,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { colors } from "../Constant";
+import { colors } from "../constants/Constant";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
+// Função utilitária para buscar receitas
+const fetchRecipes = async () => {
+  const response = await fetch("https://dummyjson.com/recipes");
+  const data = await response.json();
+  return data.recipes || [];
+};
+
 const RecipeCard = () => {
-  const [recipe, setRecipes] = useState([]);
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true); // Estado de carregamento
+  const [error, setError] = useState(null); // Estado de erro
   const navigation = useNavigation();
 
   useEffect(() => {
-    fetch("https://dummyjson.com/recipes")
-      .then((res) => res.json())
-      .then((data) => {
-        setRecipes(data.recipes);
-      })
-      .catch((error) => console.error("Erro ao buscar receitas:", error));
+    const loadRecipes = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchRecipes();
+        setRecipes(data);
+      } catch (err) {
+        setError("Erro ao carregar receitas. Tente novamente.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadRecipes();
   }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color={colors.COLOR_PRIMARY} />
+        <Text>Carregando receitas...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.errorText}>{error}</Text>
+      </View>
+    );
+  }
 
   return (
     <View>
       <FlatList
-        data={recipe}
+        data={recipes}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => {
-          const totalMinutes = item.prepTimeMinutes + item.cookTimeMinutes;
+          const totalMinutes =
+            (item.prepTimeMinutes || 0) + (item.cookTimeMinutes || 0);
           return (
-            <Pressable 
+            <Pressable
               style={styles.recipes}
-              onPress={() => navigation.navigate("RecipeDetails", {item: item})}
+              onPress={() =>
+                navigation.navigate("RecipeDetails", { item: item })
+              }
             >
-              <Image
-                source={{ uri: item.image }}
-                style={styles.imagesRecipes}
-              />
-              <Text style={styles.recipeName}>{item.name}</Text>
+              {item.image && (
+                <Image
+                  source={{ uri: item.image }}
+                  style={styles.imagesRecipes}
+                />
+              )}
+              <Text style={styles.recipeName}>{item.name || "Sem Nome"}</Text>
               {item.prepTimeMinutes && (
                 <View style={styles.timeWrapper}>
                   <Text style={styles.prepTimeText}>Tempo total: </Text>
@@ -49,7 +87,9 @@ const RecipeCard = () => {
               )}
               <View style={styles.containerNota}>
                 <Text>Nota: </Text>
-                <Text style={styles.totalMinutes}>{item.rating}</Text>
+                <Text style={styles.totalMinutes}>
+                  {item.rating || "N/A"}
+                </Text>
                 <FontAwesome
                   name="star"
                   size={16}
@@ -85,7 +125,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 5,
   },
-
   imagesRecipes: {
     width: 130,
     height: 130,
@@ -120,5 +159,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 2,
     marginTop: 5,
+  },
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 16,
+  },
+  errorText: {
+    color: "red",
+    fontSize: 16,
+    textAlign: "center",
   },
 });
