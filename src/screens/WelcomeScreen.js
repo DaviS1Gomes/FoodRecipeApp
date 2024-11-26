@@ -9,8 +9,8 @@ const WelcomeScreen = ({ navigation }) => {
         source={require("../../assets/images/MainImage.png")}
       />
       <Text style={styles.MainText}>
-        Sabores que transformam momentos únicos
-      </Text>
+       Flavors change the world!
+      </Text> 
 
       <TouchableOpacity
         style={styles.MainButton}
@@ -18,7 +18,7 @@ const WelcomeScreen = ({ navigation }) => {
           navigation.navigate("Recipe");
         }}
       >
-        <Text style={styles.ButtonText}>Ver Receitas</Text>
+        <Text style={styles.ButtonText}>Show Recipes...</Text>
       </TouchableOpacity>
     </View>
   );

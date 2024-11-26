@@ -15,13 +15,7 @@ const RecipeDetailsScreen = ({ navigation, route }) => {
   const { item } = route.params;
   const totalMinutes = item.prepTimeMinutes + item.cookTimeMinutes;
 
-  const [selectedLike, setSelectedLike] = useState(false);
   const [savedListAll, setSavedListAll] = useState([]);
-
-  const handledSelectPress = () => {
-    // Atualiza o estado para alternar entre os ícones
-    setSelectedLike((prev) => !prev);
-  };
 
    const handleToggle = async () =>{
     try {
@@ -85,26 +79,26 @@ const RecipeDetailsScreen = ({ navigation, route }) => {
                 <Text style={styles.fontTDC}>⏰</Text>
                 <Text style={styles.fontDescriptionTDC}>
                   {totalMinutes} Min(s)
-                </Text> {/* Corrigido: string renderizada dentro de <Text> */}
+                </Text> 
               </View>
 
               <View style={styles.diffContainer}>
                 <Text style={styles.fontTDC}>🥣</Text>
                 <Text style={styles.fontDescriptionTDC}>
                   {item.difficulty}
-                </Text> {/* Corrigido: string renderizada dentro de <Text> */}
+                </Text>
               </View>
 
               <View style={styles.caloriesContainer}>
                 <Text style={styles.fontTDC}>🔥</Text>
                 <Text style={styles.fontDescriptionTDC}>
                   {item.caloriesPerServing} Cal
-                </Text> {/* Corrigido: string renderizada dentro de <Text> */}
+                </Text>
               </View>
             </View>
 
             <View style={styles.containerPassos}>
-              <Text style={styles.fontPassos}>Ingredientes:</Text>
+              <Text style={styles.fontPassos}>Ingredients:</Text>
 
               {item.ingredients.map((ingredient, index) => {
                 return (
@@ -117,7 +111,7 @@ const RecipeDetailsScreen = ({ navigation, route }) => {
             </View>
 
             <View style={styles.containerPassos}>
-              <Text style={styles.fontPassos}>Passos:</Text>
+              <Text style={styles.fontPassos}>Steps:</Text>
 
               {item.instructions.map((step, index) => {
                 return (
