@@ -20,8 +20,8 @@ const fetchRecipes = async () => {
 
 const RecipeCard = () => {
   const [recipes, setRecipes] = useState([]);
-  const [loading, setLoading] = useState(true); // Estado de carregamento
-  const [error, setError] = useState(null); // Estado de erro
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
   const navigation = useNavigation();
 
   useEffect(() => {

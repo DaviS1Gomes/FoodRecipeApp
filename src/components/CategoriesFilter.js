@@ -4,14 +4,12 @@ import { colors } from "../constants/Constant";
 
 const CategoriesFilter = () => {
   const [tags, setTags] = useState([]);
-  const [selectedTag, setSelectedTag] = useState(null); // Estado para armazenar a tag selecionada
+  const [selectedTag, setSelectedTag] = useState(null); 
 
-  // Fetch data from the API
   useEffect(() => {
     fetch("https://dummyjson.com/recipes")
       .then((res) => res.json())
       .then((data) => {
-        // Extract unique tags from the API response
         const allTags = data.recipes.flatMap((recipe) => recipe.tags || []);
         const uniqueTags = [...new Set(allTags)];
         setTags(uniqueTags);
@@ -20,7 +18,7 @@ const CategoriesFilter = () => {
   }, []);
 
   const handleTagPress = (tag) => {
-    setSelectedTag(tag); // Atualiza o estado para a tag selecionada
+    setSelectedTag(tag); 
   };
 
   return (
@@ -29,7 +27,7 @@ const CategoriesFilter = () => {
         {tags.map((tag, index) => (
           <TouchableOpacity
             key={index}
-            onPress={() => handleTagPress(tag)} // Handle tag press
+            onPress={() => handleTagPress(tag)}
             style={[
               styles.container,
               {
