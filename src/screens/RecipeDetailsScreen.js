@@ -7,20 +7,56 @@ import {
   Pressable,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const RecipeDetailsScreen = ({ navigation, route }) => {
   const { item } = route.params;
   const totalMinutes = item.prepTimeMinutes + item.cookTimeMinutes;
 
   const [selectedLike, setSelectedLike] = useState(false);
+  const [savedListAll, setSavedListAll] = useState([]);
 
   const handledSelectPress = () => {
     // Atualiza o estado para alternar entre os ícones
     setSelectedLike((prev) => !prev);
   };
 
+   const handleToggle = async () =>{
+    try {
+      const savedList = await savedListAll()
+      const existFood = savedList?.find(food => food.id === item.id) 
+      if(!existFood){
+        const savedListWithNewFood = savedList ? [...savedList, item] : [item]
+        await AsyncStorage.setItem('savedFoods', JSON.stringify(savedListWithNewFood))
+        setSavedListAll(savedListWithNewFood)
+        return 
+      }
+      const savedListFiltered = savedList.filter(food => food.id !== item.id)
+      await AsyncStorage.setItem('savedFoods', JSON.stringify(savedListFiltered))
+      setSavedListAll(savedListFiltered)
+    } catch (error) {
+      
+    }
+
+   }
+
+   
+   const getSavedList = async() => {
+    try {
+      const result = await AsyncStorage.getItem('savedFoods')
+      const parsedValue = JSON.parse(result)
+      console.log(parsedValue.length)
+      setSavedListAll(parsedValue)
+    } catch (error) {
+      
+    }
+  }
+    console.log(savedListAll)
+    const savedFood = savedListAll.some(food => food.id === item.id)
+
+    useEffect(() => {getSavedList()}, [])
   return (
     <>
       <View style={styles.container}>
@@ -28,9 +64,9 @@ const RecipeDetailsScreen = ({ navigation, route }) => {
           <Pressable style={{ flex: 1 }} onPress={() => navigation.goBack()}>
             <FontAwesome name={"arrow-circle-left"} size={35} color="#fff" />
           </Pressable>
-          <Pressable onPress={handledSelectPress}>
+          <Pressable onPress={handleToggle}>
             <FontAwesome
-              name={selectedLike ? "bookmark" : "bookmark-o"}
+              name={savedFood ? "bookmark" : "bookmark-o"}
               size={35}
               color="#fff"
             />
