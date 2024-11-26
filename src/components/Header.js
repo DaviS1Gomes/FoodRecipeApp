@@ -1,12 +1,21 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const Header = ({ headerText, headerIcon }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.mainText}>{headerText}</Text>
-      <FontAwesome name={headerIcon} size={24} color="#EEAD2D" />
+
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("LikedList");
+        }}
+      >
+        <FontAwesome name={headerIcon} size={24} color="#EEAD2D" />
+      </TouchableOpacity>
     </View>
   );
 };

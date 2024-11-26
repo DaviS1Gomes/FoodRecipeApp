@@ -17,39 +17,45 @@ const RecipeDetailsScreen = ({ navigation, route }) => {
 
   const [savedListAll, setSavedListAll] = useState([]);
 
-   const handleToggle = async () =>{
+  const handleToggle = async () => {
     try {
-      const existFood = savedListAll?.find(food => food.id === item.id) 
-      if(!existFood){
-        const savedListWithNewFood = savedListAll ? [...savedListAll, item] : [item]
-        await AsyncStorage.setItem('savedFoods', JSON.stringify(savedListWithNewFood))
-        setSavedListAll(savedListWithNewFood)
-        return 
+      const existFood = savedListAll?.find((food) => food.id === item.id);
+      if (!existFood) {
+        const savedListWithNewFood = savedListAll
+          ? [...savedListAll, item]
+          : [item];
+        await AsyncStorage.setItem(
+          "savedFoods",
+          JSON.stringify(savedListWithNewFood)
+        );
+        setSavedListAll(savedListWithNewFood);
+        return;
       }
-      const savedListFiltered = savedListAll.filter(food => food.id !== item.id)
-      await AsyncStorage.setItem('savedFoods', JSON.stringify(savedListFiltered))
-      setSavedListAll(savedListFiltered)
-    } catch (error) {
-      
-    }
+      const savedListFiltered = savedListAll.filter(
+        (food) => food.id !== item.id
+      );
+      await AsyncStorage.setItem(
+        "savedFoods",
+        JSON.stringify(savedListFiltered)
+      );
+      setSavedListAll(savedListFiltered);
+    } catch (error) {}
+  };
 
-   }
-
-   
-   const getSavedList = async() => {
+  const getSavedList = async () => {
     try {
-      const result = await AsyncStorage.getItem('savedFoods')
-      const parsedValue = JSON.parse(result)
-      console.log(parsedValue.length)
-      setSavedListAll(parsedValue)
-    } catch (error) {
-      
-    }
-  }
-    console.log(savedListAll.length)
-    const savedFood = savedListAll.some(food => food.id === item.id)
+      const result = await AsyncStorage.getItem("savedFoods");
+      const parsedValue = JSON.parse(result);
+      console.log(parsedValue.length);
+      setSavedListAll(parsedValue);
+    } catch (error) {}
+  };
+  console.log(savedListAll.length);
+  const savedFood = savedListAll.some((food) => food.id === item.id);
 
-    useEffect(() => {getSavedList()}, [])
+  useEffect(() => {
+    getSavedList();
+  }, []);
   return (
     <>
       <View style={styles.container}>
@@ -79,14 +85,12 @@ const RecipeDetailsScreen = ({ navigation, route }) => {
                 <Text style={styles.fontTDC}>⏰</Text>
                 <Text style={styles.fontDescriptionTDC}>
                   {totalMinutes} Min(s)
-                </Text> 
+                </Text>
               </View>
 
               <View style={styles.diffContainer}>
                 <Text style={styles.fontTDC}>🥣</Text>
-                <Text style={styles.fontDescriptionTDC}>
-                  {item.difficulty}
-                </Text>
+                <Text style={styles.fontDescriptionTDC}>{item.difficulty}</Text>
               </View>
 
               <View style={styles.caloriesContainer}>
@@ -102,7 +106,10 @@ const RecipeDetailsScreen = ({ navigation, route }) => {
 
               {item.ingredients.map((ingredient, index) => {
                 return (
-                  <View style={styles.ingredientsContainer} key={`ingredient-${index}`}>
+                  <View
+                    style={styles.ingredientsContainer}
+                    key={`ingredient-${index}`}
+                  >
                     <View style={styles.uniqueIngrediente} />
                     <Text style={styles.fontIngredients}>{ingredient}</Text>
                   </View>
@@ -115,7 +122,10 @@ const RecipeDetailsScreen = ({ navigation, route }) => {
 
               {item.instructions.map((step, index) => {
                 return (
-                  <View style={styles.instructionsContainer} key={`instruction-${index}`}>
+                  <View
+                    style={styles.instructionsContainer}
+                    key={`instruction-${index}`}
+                  >
                     <View style={styles.uniqueIngrediente} />
                     <Text style={styles.fontIngredients}>{step}</Text>
                   </View>
