@@ -12,7 +12,6 @@ import { colors } from "../constants/Constant";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-// Função utilitária para buscar receitas
 const fetchRecipes = async () => {
   const response = await fetch("https://dummyjson.com/recipes");
   const data = await response.json();

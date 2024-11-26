@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { colors } from "../constants/Constant";
 
 const CategoriesFilter = () => {
   const [tags, setTags] = useState([]);
+  const [selectedTag, setSelectedTag] = useState(null); // Estado para armazenar a tag selecionada
 
   // Fetch data from the API
   useEffect(() => {
@@ -18,29 +19,36 @@ const CategoriesFilter = () => {
       .catch((error) => console.error("Erro ao buscar as receitas:", error));
   }, []);
 
+  const handleTagPress = (tag) => {
+    setSelectedTag(tag); // Atualiza o estado para a tag selecionada
+  };
+
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {tags.map((tag, index) => (
-          <View
+          <TouchableOpacity
             key={index}
+            onPress={() => handleTagPress(tag)} // Handle tag press
             style={[
               styles.container,
               {
                 backgroundColor:
-                  index === 0 ? colors.COLOR_PRIMARY : colors.COLOR_LIGHT,
+                  selectedTag === tag ? colors.COLOR_PRIMARY : colors.COLOR_LIGHT,
               },
             ]}
           >
             <Text
               style={[
-                { color: index === 0 ? colors.COLOR_LIGHT : colors.COLOR_PRIMARY },
+                {
+                  color: selectedTag === tag ? colors.COLOR_LIGHT : colors.COLOR_PRIMARY,
+                },
                 styles.categoriesText,
               ]}
             >
               {tag}
             </Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>
