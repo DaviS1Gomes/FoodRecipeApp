@@ -25,15 +25,14 @@ const RecipeDetailsScreen = ({ navigation, route }) => {
 
    const handleToggle = async () =>{
     try {
-      const savedList = await savedListAll()
-      const existFood = savedList?.find(food => food.id === item.id) 
+      const existFood = savedListAll?.find(food => food.id === item.id) 
       if(!existFood){
-        const savedListWithNewFood = savedList ? [...savedList, item] : [item]
+        const savedListWithNewFood = savedListAll ? [...savedListAll, item] : [item]
         await AsyncStorage.setItem('savedFoods', JSON.stringify(savedListWithNewFood))
         setSavedListAll(savedListWithNewFood)
         return 
       }
-      const savedListFiltered = savedList.filter(food => food.id !== item.id)
+      const savedListFiltered = savedListAll.filter(food => food.id !== item.id)
       await AsyncStorage.setItem('savedFoods', JSON.stringify(savedListFiltered))
       setSavedListAll(savedListFiltered)
     } catch (error) {
@@ -53,7 +52,7 @@ const RecipeDetailsScreen = ({ navigation, route }) => {
       
     }
   }
-    console.log(savedListAll)
+    console.log(savedListAll.length)
     const savedFood = savedListAll.some(food => food.id === item.id)
 
     useEffect(() => {getSavedList()}, [])
