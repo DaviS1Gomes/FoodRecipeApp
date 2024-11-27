@@ -1,12 +1,12 @@
 import { StyleSheet, View, TextInput } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 
-const SearchFilter = ({ icon, placeholder }) => {
+const SearchFilter = ({ icon, ...rest }) => {
   return (
     <View style={styles.container}>
       <FontAwesome name={icon} size={20} color={"#EEAD2D"} />
-      <TextInput style={styles.textMain} placeholder={placeholder} />
+      <TextInput style={styles.textMain} {...rest} />
     </View>
   );
 };

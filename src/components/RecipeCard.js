@@ -18,12 +18,25 @@ const fetchRecipes = async () => {
   return data.recipes || [];
 };
 
-const RecipeCard = () => {
+const RecipeCard = ({searchInputValue, categorySelected}) => {
+
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null); 
   const navigation = useNavigation();
 
+
+  const filtered = recipes.filter(recipe => { 
+    if(categorySelected !== '') { 
+      if(searchInputValue !== '') {
+        return recipe.tags.some(tag => tag === categorySelected) && recipe.name.toLowerCase().includes(searchInputValue.toLowerCase())
+      }
+      return recipe.tags.some(tag => tag === categorySelected);
+    }
+
+    return recipe.name.toLowerCase().includes(searchInputValue.toLowerCase()); 
+
+  })
   useEffect(() => {
     const loadRecipes = async () => {
       try {
@@ -59,7 +72,7 @@ const RecipeCard = () => {
   return (
     <View>
       <FlatList
-        data={recipes}
+        data={filtered}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => {
           const totalMinutes =

@@ -2,9 +2,10 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-nati
 import React, { useEffect, useState } from "react";
 import { colors } from "../constants/Constant";
 
-const CategoriesFilter = () => {
+
+
+const CategoriesFilter = ( {categorySelected, onChangeCategory}) => {
   const [tags, setTags] = useState([]);
-  const [selectedTag, setSelectedTag] = useState(null); 
 
   useEffect(() => {
     fetch("https://dummyjson.com/recipes")
@@ -18,7 +19,13 @@ const CategoriesFilter = () => {
   }, []);
 
   const handleTagPress = (tag) => {
-    setSelectedTag(tag); 
+    
+    if(tag === categorySelected) {
+      onChangeCategory('')
+      return 
+    }
+    
+    onChangeCategory(tag); 
   };
 
   return (
@@ -32,14 +39,14 @@ const CategoriesFilter = () => {
               styles.container,
               {
                 backgroundColor:
-                  selectedTag === tag ? colors.COLOR_PRIMARY : colors.COLOR_LIGHT,
+                  categorySelected === tag ? colors.COLOR_PRIMARY : colors.COLOR_LIGHT,
               },
             ]}
           >
             <Text
               style={[
                 {
-                  color: selectedTag === tag ? colors.COLOR_LIGHT : colors.COLOR_PRIMARY,
+                  color: categorySelected === tag ? colors.COLOR_LIGHT : colors.COLOR_PRIMARY,
                 },
                 styles.categoriesText,
               ]}
